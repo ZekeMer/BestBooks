@@ -1,3 +1,17 @@
-h1 {
-    color: darkgreen
+body {
+    max-width: 600px;
+    background-color: tan;
+    font-family:'Times New Roman', Times, serif;
+    padding:10px;
+}
+
+h1 { color: darkgreen; }
+
+.error { color: darkred; }
+
+form div { margin: 20px 0; }
+
+label {
+    display: inline-block;
+    width: 100px;
 }

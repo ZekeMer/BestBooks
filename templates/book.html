@@ -4,11 +4,45 @@
 
 <h1>Recommend the Best Book!</h1>
 
+{% if error %}
+    <p class ="error"> {{ error }} </p>
+{% endif %}
+
 <form action="" method="POST">
 
     <div>
-        <label for="name">Name :</label>
+        <label for="name"> Name *:</label>
         <input type="text" name="name" id="name" required>
+    </div>
+
+    <div>
+        <label for="title"> Title of book *: </label>
+        <input type = "text" name ="title" id = "title" required>
+    </div>
+
+    <div>
+        <label for="author"> Name of the author : </label>
+        <input type="text" name="author" id="author">
+    </div>
+
+    <div>
+        <label for="synopsis"> Synopsis *: </label>
+        <textarea name = "synopsis" id="synopsis" rows = "5" required></textarea>
+    </div>
+
+    <div>
+        <label for="rating"> Rating *: </label>
+        <input type = "number" name="rating" id="rating" min="0" max="10" required>
+    </div>
+
+    <div>
+        <label for = "thoughts"> Please provide your thoughts on the book (no spoilers please) :</label>
+        <textarea name="thoughts" id="thoughts" rows = "5"></textarea>    
+    </div>   
+
+
+    <div>
+        <button type = "submit"> Post the best book! </button>
     </div>
     
     
