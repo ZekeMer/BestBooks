@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> This is your book! </h1>
+
+<p> Reader's name: {{ name }} </p>
+<P> Title of book: {{ title }} </P>
+<p> Author of book: {{ author if author else "No author provided. How am I going to find the book now!"}} </p>
+<p> Synopsis: {{ synopsis }}</p>
+<p> Rating: {{ rating }} </p>
+<p> Thoughts: {{ thoughts if thoughts else "No thoughts? How?"}} </p>
+
+<a href = "{{ url_for('book') }}"> Post another book </a>
+
+{% endblock %}

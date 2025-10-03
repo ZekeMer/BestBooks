@@ -13,8 +13,8 @@ def book():
         name = request.form.get('name', '').strip()
         title = request.form.get('title', '').strip()
         author = request.form.get('author', '').strip()
-        rating = request.form.get('rating', '').strip()
         synopsis = request.form.get('synopsis', '').strip()
+        rating = request.form.get('rating', '').strip()
         thoughts = request.form.get('thoughts', '').strip()
 
         if not name or not rating or not title or not synopsis:
@@ -22,6 +22,6 @@ def book():
             return render_template('book.html', error = msgOfDoom)
 
         # Success! New Bestbook!
-        # return render_template('book.html', name = name, author = author, rating = rating)
+        return render_template('bookPost.html', name = name, title = title, author = author, rating = rating, synopsis = synopsis, thoughts = thoughts)
 
     return render_template('book.html')
