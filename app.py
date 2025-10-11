@@ -1,6 +1,27 @@
 from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime, timezone
+
 
 app = Flask(__name__)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///BestBooks.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(50), nullable = False)
+    title = db.Column(db.String(100), nullable = False)
+    author = db.Column(db.String(50), nullable = False)
+    synopsis = db.Column(db.Text)
+    rating = db.Column(db.Integer, nullable = False)
+    thoughts = db.Column(db.Text)
+    created_at = db.Column(db.DateTime, default = datetime.now(timezone.utc))
+
+with app.app_context():
+    db.create_all()
 
 # This should be book.html
 @app.route("/")
@@ -21,7 +42,23 @@ def book():
             msgOfDoom = "Error of Doom! Make sure all required fields are filled in!"
             return render_template('book.html', error = msgOfDoom)
 
+        try:
+            new_book = Book(name=name, title = title, author = author, synopsis = synopsis, rating = int(rating), thoughts = thoughts)
+            db.session.add(new_book)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            error = "Your book couldn't be saved due to an error! Try again please."
+            return render_template('book.html', error = error)
+
         # Success! New Bestbook!
         return render_template('bookPost.html', name = name, title = title, author = author, rating = rating, synopsis = synopsis, thoughts = thoughts)
 
     return render_template('book.html')
+
+# This is the admin page from which to view the database!
+
+@app.route('/admin/book')
+def admin_book():
+    books = Book.query.all()
+    return render_template('admin_books.html', books = books)

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %} {{super()}} - BestBooks Admin {% endblock %}
+{% block content %}
+<h1>All BestBooks! Take your pick!</h1>
+<table class = "table table=striped" border = "1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Synopsis</th>
+        <th>Rating</th>
+        <th>Thoughts</th>
+        <th>Created at</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.id }}</td>
+        <td> {{ book.name }} </td>
+        <td> {{ book.title }} </td>
+        <td> {{ book.author }} </td>
+        <td> {{ book.synopsis }} </td>
+        <td> {{ book.rating }} </td>
+        <td> {{ book.thoughts }} </td>
+        <td> {{ book.created_at }} </td>  
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
