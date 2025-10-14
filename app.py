@@ -62,3 +62,22 @@ def book():
 def admin_book():
     books = Book.query.all()
     return render_template('admin_books.html', books = books)
+
+@app.route('/admin/book/highRating')
+def admin_book_highRating():
+    try:
+        book_rec = Book.query.filter(Book.rating >= 8).all()
+
+        for book in book_rec:
+            if "READ THIS" not in book.title:
+                book.title += " - READ THIS"
+        
+        db.session.commit()
+
+        return redirect(url_for('admin_book'))
+    
+    except Exception as e:
+        db.session.rollback()
+        error = f"Error updating BestBooks: {str(e)}"
+        books = Book.query.all()
+        return render_template('admin_books.html', books = books, error = error)
