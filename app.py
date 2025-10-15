@@ -78,6 +78,6 @@ def admin_book_highRating():
     
     except Exception as e:
         db.session.rollback()
-        error = f"Error updating BestBooks: {str(e)}"
+        uperror = f"Error updating BestBooks: {str(e)}"
         books = Book.query.all()
-        return render_template('admin_books.html', books = books, error = error)
+        return render_template('admin_books.html', books = books, error = uperror)
