@@ -81,3 +81,17 @@ def admin_book_highRating():
         uperror = f"Error updating BestBooks: {str(e)}"
         books = Book.query.all()
         return render_template('admin_books.html', books = books, error = uperror)
+    
+@app.route('/admin/book/deleteBadBooks')
+def admin_book_deleteBadBooks():
+    try:
+        badbooks = Book.query.filter(Book.rating <= 2).delete()
+
+        db.session.commit()
+
+        return redirect(url_for('admin_book'))
+    
+    except Exception as e:
+        error = f"Error getting rid of trash books: {str(e)}"
+        books = Book.query.all()
+        return render_template('admin_books.html', error = error, books = books)

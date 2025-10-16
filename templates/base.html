@@ -8,8 +8,11 @@
 </head>
 <body>
 
-    <a href = "{{ url_for('admin_book') }}"> View Database </a>   
-    
+    <nav>
+    <a href = "{{ url_for('book') }}"> Add BestBook </a> | 
+    <a href = "{{ url_for('admin_book') }}"> View Database </a>
+    </nav>
+
     <hr>
 
     {% block content %} {% endblock %}
