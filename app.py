@@ -60,8 +60,8 @@ def book():
 
 @app.route('/admin/book')
 def admin_book():
-    books = Book.query.all()
-    return render_template('admin_books.html', books = books)
+    book = Book.query.all()
+    return render_template('admin_book.html', book = book)
 
 @app.route('/admin/book/highRating')
 def admin_book_highRating():
@@ -79,8 +79,8 @@ def admin_book_highRating():
     except Exception as e:
         db.session.rollback()
         uperror = f"Error updating BestBooks: {str(e)}"
-        books = Book.query.all()
-        return render_template('admin_books.html', books = books, error = uperror)
+        book = Book.query.all()
+        return render_template('admin_book.html', book = book, error = uperror)
     
 @app.route('/admin/book/deleteBadBooks')
 def admin_book_deleteBadBooks():
@@ -93,5 +93,35 @@ def admin_book_deleteBadBooks():
     
     except Exception as e:
         error = f"Error getting rid of trash books: {str(e)}"
-        books = Book.query.all()
-        return render_template('admin_books.html', error = error, books = books)
+        book = Book.query.all()
+        return render_template('admin_book.html', error = error, book = book)
+
+# delete button
+@app.route('/admin/book/deleteButton', methods = ['POST'])
+def admin_book_deleteButton():
+    try:
+        bookId = request.form.get('bookId', '').strip()
+
+        if not bookId:
+            error = f"There was no profile with id to be deleted"
+            book = Book.query.all()
+            return render_template('admin_book.html', book = book, error = error)
+        
+        book_delete = Book.query.filter_by(id = bookId).first()
+
+        if not book_delete:
+            error = f"There are no books to delete!"
+            book = Book.query.all()
+            return render_template('admin_book.html', book = book, error = error)
+        
+        db.session.delete(book_delete)
+
+        db.session.commit()
+
+        return redirect(url_for('admin_book'))
+
+    except Exception as e:
+        db.session.rollback()
+        error = f"Error deleting book: {str(e)}"
+        book = Book.query.all()
+        return render_template('admin_book.html', book = book, error = error)

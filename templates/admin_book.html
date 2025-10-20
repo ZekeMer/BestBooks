@@ -17,8 +17,10 @@
         <th>Rating</th>
         <th>Thoughts</th>
         <th>Created at</th>
+        <th>Delete</th>
     </tr>
-    {% for book in books %}
+    {# The second book is for the actual class #}
+    {% for book in book %}
     <tr>
         <td>{{ book.id }}</td>
         <td> {{ book.name }} </td>
@@ -28,6 +30,14 @@
         <td> {{ book.rating }} </td>
         <td> {{ book.thoughts }} </td>
         <td> {{ book.created_at }} </td>  
+        <td>
+            <div>
+                <form method = "POST" action = "{{ url_for('admin_book_deleteButton') }}">
+                    <input name = "bookId" type = "hidden" value = "{{ book.id }}">
+                    <button type = "submit"> Delete </button>
+                </form>           
+            </div>
+        </td>
     </tr>
     {% endfor %}
 </table>
