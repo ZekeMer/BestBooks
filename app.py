@@ -39,8 +39,8 @@ def book():
         thoughts = request.form.get('thoughts', '').strip()
 
         if not name or not rating or not title or not synopsis:
-            msgOfDoom = "Error of Doom! Make sure all required fields are filled in!"
-            return render_template('book.html', error = msgOfDoom)
+            error = "Error of Doom! Make sure all required fields are filled in!"
+            return render_template('book.html', error = error)
 
         try:
             new_book = Book(name=name, title = title, author = author, synopsis = synopsis, rating = int(rating), thoughts = thoughts)
@@ -55,6 +55,25 @@ def book():
         return render_template('bookPost.html', name = name, title = title, author = author, rating = rating, synopsis = synopsis, thoughts = thoughts)
 
     return render_template('book.html')
+
+# New route to filter via search of book title
+
+@app.route('/book/searchBook', methods = ['POST'])
+def book_searchBook():
+    if request.method == "POST":
+        userSearch = request.form.get('userSearch').strip()
+
+        if not userSearch:    
+            error = "Invalid input. Please enter a book title."
+            return render_template('searchBook.html', error = error)
+        
+        bookFound = Book.query.filter(Book.title == userSearch).all()
+
+        if not bookFound:
+            searchError = f"There were no books found with the title: \"{userSearch}\". Please try again."
+            return render_template('searchBook.html', searchError = searchError)
+
+    return render_template('searchBook.html', bookFound = bookFound)
 
 # This is the admin page from which to view the database!
 

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{# <h1> Search Result: </h1> #}
+
+{% if searchError %}
+    <p class ="error"> {{ searchError }} </p>
+
+{% elif error %}
+    <p class="error"> {{ error }} </p>
+
+{% else %}    
+<table class = "table table=striped" border = "1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Synopsis</th>
+        <th>Rating</th>
+        <th>Thoughts</th>
+        <th>Created at</th>
+    </tr>
+
+    {% for book in  %}
+    <tr>
+        <td>{{ book.id }}</td>
+        <td> {{ book.name }} </td>
+        <td> {{ book.title }} </td>
+        <td> {{ book.author }} </td>
+        <td> {{ book.synopsis }} </td>
+        <td> {{ book.rating }} </td>
+        <td> {{ book.thoughts }} </td>
+        <td> {{ book.created_at }} </td>  
+    </tr>
+    {% endfor %}
+</table>
+
+
+{% endif %}
+
+{% endblock %}
