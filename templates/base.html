@@ -13,7 +13,7 @@
     <a href = "{{ url_for('admin_book') }}"> View Database </a>
     <div>
         <form method = "POST" action = "{{ url_for('book_searchBook') }}">
-            <label for = "userSearch"> Search for book : </label>
+            <label for = "userSearch"> Search for book by title : </label>
             <input type = "text" id = "userSearch" name = "userSearch" size = "30" placeholder= "Search the Database">
             <button type = "submit"> Search </button>
         </form>
