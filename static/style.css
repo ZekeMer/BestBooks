@@ -1,13 +1,18 @@
 body {
-    max-width: 600px;
+    max-width: fill;
     background-color: wheat;
     font-family:'Times New Roman', Times, serif;
     padding: 10px;
 }
 
+nav { background-color: tan; }
+
 h1 { color: darkgreen; }
 
 .error { color: darkred; 
+font-weight: bold;}
+
+.success { color: green;
 font-weight: bold;}
 
 form div { margin: 20px 0; }

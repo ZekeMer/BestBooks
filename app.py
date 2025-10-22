@@ -61,19 +61,22 @@ def book():
 @app.route('/book/searchBook', methods = ['POST'])
 def book_searchBook():
     if request.method == "POST":
+
         userSearch = request.form.get('userSearch').strip()
 
         if not userSearch:    
             error = "Invalid input. Please enter a book title."
             return render_template('searchBook.html', error = error)
         
-        bookFound = Book.query.filter(Book.title == userSearch).all()
+        bookFound = Book.query.filter(Book.title.contains(userSearch)).all()
 
         if not bookFound:
             searchError = f"There were no books found with the title: \"{userSearch}\". Please try again."
             return render_template('searchBook.html', searchError = searchError)
+        
+        searchYay = f"Search result for books with \"{userSearch}\" in title."
 
-    return render_template('searchBook.html', bookFound = bookFound)
+    return render_template('searchBook.html', bookFound = bookFound, searchYay = searchYay)
 
 # This is the admin page from which to view the database!
 
@@ -88,8 +91,8 @@ def admin_book_highRating():
         book_rec = Book.query.filter(Book.rating >= 8).all()
 
         for book in book_rec:
-            if "READ THIS" not in book.title:
-                book.title += " - READ THIS"
+            if "READ THIS" not in book.thoughts:
+                book.thoughts += " - READ THIS"
         
         db.session.commit()
 
