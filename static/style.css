@@ -1,8 +1,12 @@
 body {
-    max-width: 600px;
+    max-width: fill;
     background-color: wheat;
     font-family:'Times New Roman', Times, serif;
     padding: 10px;
+}
+
+nav {
+    background-color: tan;
 }
 
 h1 { color: darkgreen; }
