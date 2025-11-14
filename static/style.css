@@ -5,7 +5,15 @@ body {
     padding: 10px;
 }
 
-nav { background-color: tan; }
+<<<<<<< HEAD
+nav { 
+    background-color: tan; 
+}
+=======
+nav {
+    background-color: tan;
+}
+>>>>>>> 560da75cb59f7407c8813f03e2b1557f46fdc212
 
 h1 { color: darkgreen; }
 
